@@ -12,9 +12,8 @@ Related libraries should be installed via pip/conda.
 EDA.ipynb includes basic data cleaning only for job descriptions and analysis \
 In the repo, cleaned top 100 entry is added as .csv file.
 
-model.ipynb includes generating embeddings with pre-trained Sentence Transformer model namely: "paraphrase-MiniLM-L6-v2" \
-the main reason of choosing this model is small size. Tried bigger models (at least embedding size = 768) \
-but it takes time to generate embeddings. Source: https://www.sbert.net/docs/pretrained_models.html. \
+model.ipynb includes generating embeddings with pre-trained Sentence Transformer model namely: "paraphrase-MiniLM-L6-v2" the main reason of choosing this model is small size. 
+Tried bigger models (at least embedding dim = 768) but it takes time to generate embeddings. Source: https://www.sbert.net/docs/pretrained_models.html. \
 After embeddings are generated, it is saved to .npy file. In the repo, top 100 job description encodings are added. 
 
 
