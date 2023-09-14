@@ -1,27 +1,24 @@
-from fastapi import FastAPI, Body, Response, HTTPException
-import numpy as np
-from typing import List
-from pydantic import BaseModel
 import json
 import logging
+from typing import List
+
+import numpy as np
+from fastapi import Body, FastAPI, HTTPException, Response
+from pydantic import BaseModel
 from pymilvus import Collection, connections, utility
 
-MILVUS_ALIAS = 'default'
-MILVUS_HOST = 'localhost'
-MILVUS_HOST_PORT = '9091'
-MILVUS_COLLECTION = 'job_description_emb'
+MILVUS_ALIAS = "default"
+MILVUS_HOST = "localhost"
+MILVUS_HOST_PORT = "9091"
+MILVUS_COLLECTION = "job_description_emb"
 MILVUS_ALIAS_NAME = "default"
 
-connections.connect(
-  alias=MILVUS_ALIAS_NAME
-)
+connections.connect(alias=MILVUS_ALIAS_NAME)
 
 
-#search_params = {"metric_type": "L2", "params": {"nprobe": 84}, "offset": 0}
+search_params = {"metric_type": "L2", "params": {"nprobe": 84}, "offset": 0}
 
 collection = Collection(MILVUS_COLLECTION)
-distance_threshold = 0.2
-search_params = {"metric_type": "L2",  "max_distance": distance_threshold, "params": {"nprobe": 64}}
 
 
 app = FastAPI(docs_url="/swagger")
@@ -29,42 +26,434 @@ app = FastAPI(docs_url="/swagger")
 
 class SearchDataInput(BaseModel):
     embeddings: List[List[float]] = Body(...)
+
     class Config:
         schema_extra = {
             "example": {
-                "embeddings": [[-1.2683e-01, -2.0361e-01,  3.2861e-01],[-1.0303e-01,  1.8164e-01, -2.5925e-02]]
+                "embeddings": [
+                    [
+                        -0.10449833,
+                        -0.35488445,
+                        -0.14203393,
+                        -0.13399124,
+                        -0.26506042,
+                        -0.09482317,
+                        -0.17296463,
+                        -0.00837596,
+                        -0.13152482,
+                        0.05788972,
+                        -0.1613378,
+                        -0.01558806,
+                        -0.2649365,
+                        -0.21986121,
+                        0.24535067,
+                        -0.20539638,
+                        -0.0609545,
+                        -0.24829572,
+                        -0.01366124,
+                        -0.028388,
+                        0.03680178,
+                        -0.30063057,
+                        -0.32515058,
+                        -0.13637915,
+                        -0.07780047,
+                        -0.2829086,
+                        -0.17462933,
+                        -0.202629,
+                        0.4618324,
+                        -0.06900965,
+                        0.35098222,
+                        -0.36415038,
+                        0.05271176,
+                        0.05246148,
+                        0.04971326,
+                        0.21795684,
+                        -0.25004366,
+                        0.03673599,
+                        -0.2340553,
+                        -0.39514476,
+                        0.2252634,
+                        0.09092484,
+                        -0.08315606,
+                        0.12313836,
+                        0.0259116,
+                        0.13117276,
+                        -0.18161279,
+                        0.44074547,
+                        -0.32069108,
+                        0.32602736,
+                        0.04421189,
+                        -0.39924574,
+                        -0.22692627,
+                        -0.05094362,
+                        0.12408137,
+                        -0.0939585,
+                        -0.26367667,
+                        0.31760854,
+                        0.04235152,
+                        -0.35100338,
+                        0.20948306,
+                        -0.4115215,
+                        -0.44280237,
+                        0.13394184,
+                        -0.11459681,
+                        -0.17938474,
+                        0.08254892,
+                        0.20766312,
+                        -0.00273878,
+                        -0.19517235,
+                        0.37709746,
+                        -0.08219369,
+                        -0.33954102,
+                        0.29549176,
+                        0.23907718,
+                        0.77646005,
+                        0.4205125,
+                        -0.09765321,
+                        0.18505582,
+                        -0.16695833,
+                        0.58648556,
+                        -0.01826732,
+                        0.13190597,
+                        0.1282233,
+                        0.24898738,
+                        -0.08675776,
+                        -0.14320314,
+                        -0.11429101,
+                        0.44341063,
+                        -0.22405678,
+                        -0.23383904,
+                        0.00417305,
+                        0.15896618,
+                        -0.15843238,
+                        0.23177019,
+                        0.10746386,
+                        0.12760213,
+                        -0.49045902,
+                        -0.30224895,
+                        0.10972846,
+                        0.00771233,
+                        -0.21036199,
+                        0.13501453,
+                        -0.36368114,
+                        -0.04045992,
+                        -0.1310167,
+                        0.40942138,
+                        0.39575657,
+                        0.2180604,
+                        0.4921646,
+                        -0.22401385,
+                        0.1703896,
+                        -0.40489876,
+                        -0.295211,
+                        0.22646944,
+                        0.02700933,
+                        -0.16845787,
+                        0.41328838,
+                        -0.1206383,
+                        -0.34063467,
+                        -0.3647904,
+                        0.13996078,
+                        -0.37280786,
+                        -0.11707762,
+                        -0.21449804,
+                        0.552516,
+                        0.22152212,
+                        -0.01129188,
+                        -0.35134202,
+                        0.02588645,
+                        -0.28788728,
+                        0.13178182,
+                        0.13728575,
+                        0.20063667,
+                        0.32316387,
+                        0.04047767,
+                        -0.5222588,
+                        -0.37858197,
+                        -0.08040465,
+                        -0.16272812,
+                        -0.01076155,
+                        0.39080322,
+                        -0.04555058,
+                        -0.2951901,
+                        0.27977312,
+                        0.08752926,
+                        0.11368814,
+                        0.02974124,
+                        -0.14573662,
+                        0.20039065,
+                        0.13355838,
+                        -0.1102927,
+                        -0.14487359,
+                        -0.15323296,
+                        -0.06133376,
+                        -0.00254103,
+                        0.09951452,
+                        -0.03888152,
+                        0.12917314,
+                        0.00439647,
+                        -0.07800411,
+                        -0.19628398,
+                        0.40854594,
+                        0.24012658,
+                        -0.0319134,
+                        -0.4128711,
+                        0.00344381,
+                        -0.11350862,
+                        -0.36550972,
+                        0.23425613,
+                        -0.7116695,
+                        -0.122486,
+                        -0.24525188,
+                        0.12059518,
+                        0.03732815,
+                        -0.16863863,
+                        0.03628993,
+                        0.04525671,
+                        -0.2933202,
+                        0.02411421,
+                        -0.11501724,
+                        0.04420332,
+                        0.29467288,
+                        -0.16040915,
+                        0.1534488,
+                        0.25047156,
+                        0.35980767,
+                        -0.18087915,
+                        0.35013264,
+                        0.07448657,
+                        -0.14979106,
+                        -0.04024984,
+                        0.04794194,
+                        0.24679041,
+                        0.33715072,
+                        -0.02347242,
+                        -0.09696113,
+                        -0.2109742,
+                        0.26090956,
+                        0.29469046,
+                        -0.15048045,
+                        -0.156028,
+                        -0.41891006,
+                        0.03814672,
+                        0.00904469,
+                        0.16674128,
+                        0.33590078,
+                        0.24140133,
+                        0.08178455,
+                        -0.31680614,
+                        -0.21072009,
+                        -0.20983139,
+                        -0.14847437,
+                        0.10062776,
+                        0.05041837,
+                        -0.21519822,
+                        0.0227943,
+                        0.2276471,
+                        0.2324375,
+                        0.2036201,
+                        -0.2620809,
+                        0.39125934,
+                        -0.31510246,
+                        -0.00679199,
+                        -0.48268175,
+                        -0.04165015,
+                        -0.21470009,
+                        0.03112915,
+                        -0.18242198,
+                        -0.06133005,
+                        -0.09625211,
+                        -0.1851093,
+                        0.4042419,
+                        0.10501833,
+                        -0.05920433,
+                        0.03104621,
+                        0.26039934,
+                        0.06664097,
+                        -0.76652855,
+                        -0.10849611,
+                        0.24193414,
+                        -0.08532724,
+                        -0.05848482,
+                        -0.1266202,
+                        -0.0345234,
+                        0.33754322,
+                        -0.43710032,
+                        0.25543156,
+                        -0.19743934,
+                        0.34141535,
+                        0.13089581,
+                        -0.10722485,
+                        0.20481195,
+                        -0.34781826,
+                        -0.02351409,
+                        -0.25273147,
+                        -0.4982214,
+                        -0.17224191,
+                        0.10592432,
+                        0.13130692,
+                        0.5419793,
+                        -0.09543647,
+                        -0.3538967,
+                        -0.1268366,
+                        0.3521946,
+                        0.00762041,
+                        -0.00224865,
+                        0.5235435,
+                        0.29619652,
+                        0.16531178,
+                        0.21621922,
+                        -0.35475305,
+                        0.04211935,
+                        -0.08545318,
+                        -0.17276052,
+                        -0.00785321,
+                        0.15212111,
+                        0.2143663,
+                        -0.03307403,
+                        0.22836164,
+                        0.4432207,
+                        0.09353957,
+                        -0.39570627,
+                        -0.0134915,
+                        -0.37671074,
+                        -0.39389074,
+                        -0.03634035,
+                        0.08258865,
+                        0.01419655,
+                        0.10979417,
+                        0.43132293,
+                        0.13650607,
+                        -0.03638725,
+                        0.10590651,
+                        -0.0722328,
+                        -0.10224639,
+                        -0.3531694,
+                        -0.94497806,
+                        -0.28189158,
+                        -0.07969496,
+                        0.16553801,
+                        0.04799982,
+                        -0.00357337,
+                        0.38130173,
+                        -0.06628476,
+                        -0.03058797,
+                        0.06335416,
+                        -0.18479562,
+                        0.2517659,
+                        0.00708019,
+                        0.57373697,
+                        -0.2953457,
+                        0.09695741,
+                        0.19082618,
+                        -0.30338874,
+                        0.1899668,
+                        -0.20827079,
+                        0.09272128,
+                        0.38266575,
+                        0.26285616,
+                        0.04539729,
+                        -0.3274156,
+                        -0.19932301,
+                        0.31064546,
+                        0.19430271,
+                        -0.01140277,
+                        -0.17683163,
+                        0.02400881,
+                        -0.00796605,
+                        0.26892954,
+                        -0.22853808,
+                        0.1550911,
+                        -0.3840159,
+                        -0.11322757,
+                        0.2521833,
+                        -0.33704376,
+                        -0.04012771,
+                        0.24803855,
+                        -0.23184067,
+                        -0.0241331,
+                        0.04211795,
+                        0.30522895,
+                        0.31838825,
+                        0.00796831,
+                        -0.30056876,
+                        -0.2265639,
+                        0.23269778,
+                        -0.05054265,
+                        -0.1701645,
+                        -0.09521876,
+                        -0.05708994,
+                        0.16089138,
+                        -0.17564991,
+                        -0.13024445,
+                        -0.295511,
+                        0.20560218,
+                        0.11680162,
+                        0.34103212,
+                        -0.01032595,
+                        0.31344825,
+                        0.17896873,
+                        0.5125708,
+                        0.30085966,
+                        0.42303348,
+                        0.40458518,
+                        0.39641485,
+                        -0.09462476,
+                        0.1896115,
+                        0.13296704,
+                        -0.19130154,
+                        -0.1794849,
+                        0.0703029,
+                        0.47478187,
+                        0.3826733,
+                        -0.16946065,
+                        -0.30766162,
+                        -0.11226629,
+                        0.24294706,
+                        -0.09262398,
+                        0.16486402,
+                        0.00431747,
+                        -0.38356543,
+                        0.09489819,
+                        0.07247237,
+                    ]
+                ]
             }
-        }       
+        }
 
-    
+
 class InsertDataInput(BaseModel):
     embeddings: List[List[float]] = Body(...)
     job_ids: List[str] = Body(...)
+
     class Config:
         schema_extra = {
             "example": {
-                "embeddings": [[-1.2683e-01, -2.0361e-01,  3.2861e-01],[-1.0303e-01,  1.8164e-01, -2.5925e-02]],
-                "job_ids": ['720052108','160056105']
+                "embeddings": [
+                    [-1.2683e-01, -2.0361e-01, 3.2861e-01],
+                    [-1.0303e-01, 1.8164e-01, -2.5925e-02],
+                ],
+                "job_ids": ["720052108", "160056105"],
             }
-        }             
- 
+        }
 
-    
+
 @app.get("/health_check")
 def health_check():
-    message = {'message': 'Success', "status_code": 200}
-    return Response(content=json.dumps(message), media_type="application/json")            
-        
+    message = {"message": "Success", "status_code": 200}
+    return Response(content=json.dumps(message), media_type="application/json")
+
+
 @app.get("/count")
 def get_count():
     count = collection.num_entities
-    message = {'count': count}
+    message = {"count": count}
     return Response(content=json.dumps(message), media_type="application/json")
 
 
 @app.get("/index_processing")
 def index_processing():
-    
+
     message = utility.index_building_progress(MILVUS_COLLECTION)
     return Response(content=json.dumps(message), media_type="application/json")
 
@@ -72,45 +461,43 @@ def index_processing():
 @app.get("/load_index")
 def load_index():
     collection.load()
-    message = {'message': 'Success', "status_code": 200}
+    message = {"message": "Success", "status_code": 200}
     return Response(content=json.dumps(message), media_type="application/json")
 
 
 @app.post("/search")
 async def search_data(data: SearchDataInput):
-    
+
     try:
         embeddings = np.array(data.embeddings).tolist()
         results = collection.search(
-            data=embeddings, 
-            anns_field="embeddings", 
+            data=embeddings,
+            anns_field="embeddings",
             param=search_params,
-            limit=5, 
+            limit=5,
             expr=None,
-    )   
+        )
         distance_list = [i.distances for i in results]
         job_ids = [i.ids for i in results]
-        result_json = {'distances': str(distance_list), 'job_ids': str(job_ids)}
+        result_json = {"distances": str(distance_list), "job_ids": str(job_ids)}
         message = result_json
 
     except Exception as e:
-        logging.exception('Error occurred while searching data: {}'.format(str(e)))
-        raise HTTPException(status_code=500, detail=str(e))   
+        logging.exception("Error occurred while searching data: {}".format(str(e)))
+        raise HTTPException(status_code=500, detail=str(e))
     return Response(content=json.dumps(message), media_type="application/json")
-
 
 
 @app.put("/insert")
 def insert_data(data: InsertDataInput):
     embeddings = data.embeddings
     job_ids = data.job_ids
-    
-    temp_data = [
-        job_ids,
-        embeddings 
-    ]    
-    insrt_flag = collection.insert(temp_data) 
-    message = {'insert_count':insrt_flag.insert_count, 'timestamp': insrt_flag.timestamp,'success': insrt_flag.succ_count}
-    return Response(content=json.dumps(message), media_type="application/json")
 
-#uvicorn src.app:app --reload --host 0.0.0.0 
+    temp_data = [job_ids, embeddings]
+    insrt_flag = collection.insert(temp_data)
+    message = {
+        "insert_count": insrt_flag.insert_count,
+        "timestamp": insrt_flag.timestamp,
+        "success": insrt_flag.succ_count,
+    }
+    return Response(content=json.dumps(message), media_type="application/json")
