@@ -43,7 +43,7 @@ $uvicorn src.app:app --host 0.0.0.0
 ```
 Finally, our API is up and reachable from http://0.0.0.0:8000/swagger
 
-![image](https://github.com/psungu/Job-Posting/assets/52814705/e8b38d1b-4f3d-48ff-944e-1dec18b4fbb3)
+![image](https://github.com/psungu/Job-Posting/assets/52814705/a05213bb-75c3-4630-8c2d-27f8f54d2dc5)
 
 **search** endpoint is the crutial for the project. For small demo, please open the model.ipynb and the following cells:
 
