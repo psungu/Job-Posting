@@ -85,6 +85,7 @@ job_description_emb.flush()
 ```
 
 Now, in the swagger **/count** will show the number of entries in Milvus.
+
 ![image](https://github.com/psungu/Job-Posting/assets/52814705/d4f35b07-6055-4c83-bc16-791b739cd463)
 
 **/search** will return the top 5 most similar Job_Ids and Distance. Note that index=0 is requested embedding. \
@@ -101,7 +102,6 @@ When we checked the dataset, we see that Job descriptions are the same but citie
 For indexing **index_processing** endpoint can be useful also:
 
 ![image](https://github.com/psungu/Job-Posting/assets/52814705/e545000c-01e7-47a5-8ef2-5469ab2d6561)
-
 
 
 To load index **load_index** can be useful:
