@@ -115,6 +115,8 @@ It is also possible to **insert** new embeddings and Job_ids via **insert** endp
 
 # REQUIRED IMPROVEMENTS
 
+- Need to add explicit comments on EDA results. Briefly, I can say that distribution of words and distribution of description length triggered to use Sentence Transformers instead of using traditional methods. Also, most frequent unigrams, bigrams and trigrams are meaningful and domain specific which shows that we have relatively clean data after removing stopwords, special characters, punctuation, and non-alphanumeric characters. 
+
 - To improve the embedding quality, try different models at least the ones embedding dimension is 768. My choice would be again Sentence Tranformers because they are a relatively newer approach to generating word and sentence embeddings compared to traditional methods. The advantages of Sentence Transformers are contextual understanding, sentence-Level embeddings, state-of-the-art performance and compositional embeddings which Sentence Transformers can generate embeddings for entire sentences or documents by aggregating word embeddings, allowing them to capture the compositional meaning of sentences.
 
 - Threshold optimization to determine duplicate entiries. Current version returns only top nearast 5 Job_ids, needed to put a threshold.
